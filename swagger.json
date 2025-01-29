@@ -1,0 +1,75 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Custom URL Shortener API",
+      "version": "1.0.0",
+      "description": "API for user authentication using Google Sign-In."
+    },
+    "servers": [
+        {
+          "url": "http://localhost:5001/api",
+          "description": "Local"
+        }
+      ],
+    "paths": {
+      "/auth/google": {
+        "post": {
+          "summary": "Authenticate user with Google Sign-In",
+          "description": "Verifies the Google ID token and creates a user session.",
+          "tags": ["Authentication"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "idToken": {
+                      "type": "string",
+                      "description": "Google ID token obtained from client-side authentication."
+                    }
+                  },
+                  "required": ["idToken"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User authenticated successfully.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "token": {
+                        "type": "string",
+                        "description": "JWT token for session authentication."
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "_id": { "type": "string" },
+                          "googleId": { "type": "string" },
+                          "email": { "type": "string" },
+                          "name": { "type": "string" },
+                          "profilePicture": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Missing ID token."
+            },
+            "500": {
+              "description": "Internal server error - Authentication failed."
+            }
+          }
+        }
+      }
+    }
+  }
+  
