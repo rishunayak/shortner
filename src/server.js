@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 import path from 'path'
 import authRoutes from "./routes/authRoutes.js";
+import urlRoutes from "./routes/urlRoutes.js";
 import connectToMongoDb  from "./config/db.js";
 
 
@@ -33,7 +34,8 @@ app.use(cors())
 
 // Routes
 app.use("/api/auth", authRoutes);
- 
+app.use("/api/shorten", urlRoutes);
+
 
 
 (async () => {

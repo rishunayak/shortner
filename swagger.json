@@ -3,14 +3,14 @@
     "info": {
       "title": "Custom URL Shortener API",
       "version": "1.0.0",
-      "description": "API for user authentication using Google Sign-In."
+      "description": "API for user authentication and URL shortening."
     },
     "servers": [
-        {
-          "url": "http://localhost:5001/api",
-          "description": "Local"
-        }
-      ],
+      {
+        "url": "http://localhost:5001/api",
+        "description": "Local"
+      }
+    ],
     "paths": {
       "/auth/google": {
         "post": {
@@ -68,6 +68,85 @@
               "description": "Internal server error - Authentication failed."
             }
           }
+        }
+      },
+      "/shorten": {
+        "post": {
+          "summary": "Create a new short URL",
+          "description": "Generates a short URL for a provided long URL. Optionally, a custom alias and topic can be provided. The short URL is associated with the authenticated user.",
+          "tags": ["URL Shortening"],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "longUrl": {
+                      "type": "string",
+                      "description": "The original long URL that needs to be shortened."
+                    },
+                    "customAlias": {
+                      "type": "string",
+                      "description": "An optional custom alias for the short URL."
+                    },
+                    "topic": {
+                      "type": "string",
+                      "description": "An optional topic/category to group the URL."
+                    }
+                  },
+                  "required": ["longUrl"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Short URL successfully created.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "shortUrl": {
+                        "type": "string",
+                        "description": "The newly created short URL."
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp of when the short URL was created."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid or missing parameters."
+            },
+            "401": {
+              "description": "Unauthorized - Missing or invalid JWT token."
+            },
+            "500": {
+              "description": "Internal server error - URL shortening failed."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT",
+          "description": "Use the JWT token obtained from Google authentication to access protected endpoints."
         }
       }
     }

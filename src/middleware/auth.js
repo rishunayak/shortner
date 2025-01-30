@@ -1,16 +1,19 @@
 import  jwt from "jsonwebtoken";
-import User from "../models/user.model.js";
+import User from "../models/userModel.js";
 
 export const auth=async(req,res,next)=>
 {
 
     try {
-        const token=req.cookies.jwt;
+
+        const token=req.headers.authorization?req.headers.authorization.split(" ")[1]:null;
+
         if(!token)
         {
             return res.status(401).json({error:"Unauthorized - login first"});
         }
         const decoded=jwt.verify(token,process.env.JWT_SECRET)
+        console.log(decoded,"decoded");
 
         if(!decoded)
         {
