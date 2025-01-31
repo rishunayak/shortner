@@ -138,6 +138,35 @@
             }
           }
         }
+      },
+      "/shorten/{customAlias}": {
+        "get": {
+          "summary": "Redirect to the original URL",
+          "description": "Redirects the user to the original URL associated with the custom alias.",
+          "tags": ["URL Shortening"],
+          "parameters": [
+            {
+              "name": "customAlias",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The custom alias of the shortened URL."
+            }
+          ],
+          "responses": {
+            "302": {
+              "description": "Successfully redirected to the original URL."
+            },
+            "404": {
+              "description": "URL does not exist for the given custom alias."
+            },
+            "500": {
+              "description": "Internal server error - Redirection failed."
+            }
+          }
+        }
       }
     },
     "components": {
