@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const analyticsSchema = new mongoose.Schema({
-    urlId: { type: mongoose.Schema.Types.ObjectId, ref: "Url", required: true },
+    alias: { type: String, required: true },
     
     totalClicks: { type: Number, default: 0 },
-    uniqueUsers: { type: [String], default: [] }, // Array of unique user identifiers (e.g., cookies, IPs)
+    uniqueUsers: { type: Number, default: 0 }, // Array of unique user identifiers (e.g., cookies, IPs)
 
     clicksByDate: [
         {
@@ -17,7 +17,7 @@ const analyticsSchema = new mongoose.Schema({
         {
             osName: { type: String, required: true },
             uniqueClicks: { type: Number, default: 0 },
-            uniqueUsers: { type: [String], default: [] }
+            uniqueUsers: { type: Number, default: 0 }
         }
     ],
 
@@ -25,7 +25,7 @@ const analyticsSchema = new mongoose.Schema({
         {
             deviceName: { type: String, required: true },
             uniqueClicks: { type: Number, default: 0 },
-            uniqueUsers: { type: [String], default: [] }
+            uniqueUsers: { type: Number, default: 0 }
         }
     ]
 }, { timestamps: true });

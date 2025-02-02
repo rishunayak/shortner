@@ -7,7 +7,7 @@ import path from 'path'
 import authRoutes from "./routes/authRoutes.js";
 import urlRoutes from "./routes/urlRoutes.js";
 import connectToMongoDb  from "./config/db.js";
-
+import analyticsRoutes from "./routes/analyticsRoutes.js"
 
 
 
@@ -17,11 +17,6 @@ dotenv.config()
 
 const app=express();
 app.use(express.json());
-
- 
-
-
-
 
 
 
@@ -35,6 +30,7 @@ app.use(cors())
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/shorten", urlRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 
 
