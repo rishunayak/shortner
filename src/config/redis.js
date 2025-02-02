@@ -2,10 +2,10 @@ import { createClient } from 'redis';
 
 const client = createClient({
     username: 'default',
-    password: 'hcsbUfiwMx9hZnTf4C5OLDtOuGCOKjkf',
+    password: process.env.R_Password,
     socket: {
-        host: 'redis-19680.c17.us-east-1-4.ec2.redns.redis-cloud.com',
-        port: 19680
+        host: process.env.R_Host,
+        port: process.env.R_Port
     }
 });
 

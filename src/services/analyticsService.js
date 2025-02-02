@@ -36,7 +36,6 @@ export const getTopicAnalyticsService = async (topic,urls) => {
           uniqueUsers += urlAnalytics.uniqueUsers;
   
           urlAnalytics.clicksByDate.forEach((dateData) => {
-            console.log(dateData,clicksByDate)
             const existingDate = clicksByDate.find((item) =>item.date.toISOString().split('T')[0] === dateData.date.toISOString().split('T')[0]);
             if (existingDate) {
               existingDate.clickCount += dateData.clickCount;
@@ -69,7 +68,6 @@ export const getTopicAnalyticsService = async (topic,urls) => {
 
 
   export const getOverallAnalyticsService=async(user)=>{
-    console.log(user)
     try {
       const allUrls = await Url.find({ userId: user._id });
       const aliases = allUrls.map(url => url.customAlias);

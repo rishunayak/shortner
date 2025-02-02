@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:5001/api",
       "description": "Local"
+    },
+    {
+      "url": "https://shortner-xh49.onrender.com/api",
+      "description": "Server"
     }
   ],
   "paths": {
