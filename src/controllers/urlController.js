@@ -1,5 +1,5 @@
 import { ResponseHandler } from "../helper/responseHandler.js";
-import { urlShortenerSchema } from "../helper/validatorSchema.js";
+import { aliasSchema, urlShortenerSchema } from "../helper/validatorSchema.js";
 import {
   getShortenUrlService,
   urlShortnerService,
